@@ -2,7 +2,7 @@
 :spring_version: current
 :spring_boot_version: 2.3.7.RELEASE
 :spring_boot_docs: https://docs.spring.io/spring-boot/docs/${spring_boot_version}/reference/html
-:images: https://raw.githubusercontent.com/spring-guides/gs-tanzu-observability/master/images
+:images: https://raw.githubusercontent.com/spring-guides/gs-tanzu-observability/master/static
 :toc:
 :icons: font
 :source-highlighter: prettify
