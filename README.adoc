@@ -24,7 +24,10 @@ include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/
 [[scratch]]
 == Starting with Spring Initializr
 
-Initialize your project using the Spring Initializer:
+You can use https://start.spring.io/#!type=maven-project&language=java&groupId=com.example&artifactId=gh-tanzu-observability&packageName=hello&dependencies=web,wavefront[this pre-initialized project] and click **Generate** to download a ZIP file.
+This project is configured to fit the examples in this tutorial.
+
+If you want to initialize the project manually, follow the steps given below:
 
 . Navigate to https://start.spring.io.
 This service pulls in all the dependencies you need for an application and does most of the setup for you.
