@@ -146,6 +146,7 @@ You just developed a web application that sends metrics to Tanzu Observability b
 
 The following may also be helpful:
 
+* Wavefront for Spring Boot 3 https://github.com/wavefrontHQ/wavefront-spring-boot/blob/springboot3/README.md[README], which includes instructions for enabling Distributed Tracing
 * https://docs.wavefront.com/wavefront_springboot.html[Tanzu Observability by Wavefront for Spring Boot Documentation]
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/main/footer.adoc[]
