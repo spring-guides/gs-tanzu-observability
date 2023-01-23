@@ -1,7 +1,4 @@
-:java_version: 1.8
 :spring_version: current
-:spring_boot_version: 2.4.2
-:spring_boot_docs: https://docs.spring.io/spring-boot/docs/{spring_boot_version}/reference/html
 :images: https://raw.githubusercontent.com/spring-guides/gs-tanzu-observability/main/static
 :toc:
 :icons: font
@@ -47,31 +44,59 @@ Open the `application.properties` file and add the following:
 +
 [indent=0]
 ----
-	wavefront.application.name=demo
-	wavefront.application.service=getting-started
+	management.wavefront.application.name=demo
+	management.wavefront.application.service-name=getting-started
 ----
 +
 NOTE: The properties above configure the integration to send metrics to Tanzu Observability by Wavefront using the `demo` application and the `getting-started` service.
-An application can consist of an arbitrary number of services.
+An application can consist of an arbitrary number of microservices.
+
+. Add the following at the top level of the `pom.xml` file:
++
+[indent=0]
+----
+<dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>com.wavefront</groupId>
+      <artifactId>wavefront-spring-boot-bom</artifactId>
+      <version>3.0.1</version>
+      <type>pom</type>
+      <scope>import</scope>
+    </dependency>
+  </dependencies>
+</dependencyManagement>
+----
+
+. Add the following under the top level `<dependencies>` section of the `pom.xml` file:
++
+[indent=0]
+----
+<dependency>
+  <groupId>com.wavefront</groupId>
+  <artifactId>wavefront-spring-boot-starter</artifactId>
+</dependency>
+----
+
 
 . Run the application from your IDE by invoking the `main` method of `DemoApplication`.
 You see the following:
 +
 [indent=0]
 ----
-	INFO 16295 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
-	INFO 16295 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-	INFO 16295 --- [           main] hello.DemoApplication         : Started DemoApplication in 1.207 seconds (JVM running for 1.727)
+    INFO 58371 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+    INFO 58371 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+    INFO 58371 --- [           main] hello.DemoApplication                    : Started DemoApplication in 1.705 seconds (process running for 2.038)
 
-	A Wavefront account has been provisioned successfully and the API token has been saved to disk.
+    A Wavefront account has been provisioned successfully and the API token has been saved to disk.
 
-	To share this account, make sure the following is added to your configuration:
+    To share this account, make sure the following is added to your configuration:
 
-		management.metrics.export.wavefront.api-token=ee1f454b-abcd-efgh-1234-bb449f6a25ed
-		management.metrics.export.wavefront.uri=https://wavefront.surf
+        management.wavefront.api-token=ee1f454b-abcd-efgh-1234-bb449f6a25ed
+        management.wavefront.uri=https://wavefront.surf
 
-	Connect to your Wavefront dashboard using this one-time use link:
-	https://wavefront.surf/us/AtoKen
+    Connect to your Wavefront dashboard using this one-time use link:
+    https://wavefront.surf/us/AtoKen
 ----
 
 **What Happened?**
@@ -110,20 +135,6 @@ This feature is called conditional dashboards and lets you display sections acco
 image::{images}/dashboard-http.png[Wavefront HTTP section]
 . Optionally, access `http://localhost:8080/does-not-exist` to trigger a client-side 404 error.
 
-== Accessing Your Dashboard Using /actuator/wavefront
-
-You can use an actuator endpoint to access your dashboard without having to look at the logs and get the link each time you start your application.
-To enable this feature, you need to expose the `wavefront` endpoint.
-
-. Open the `application.properties` file and add the following:
-+
-[indent=0]
-----
-	management.endpoints.web.exposure.include=health,info,wavefront
-----
-+
-NOTE: `health` and `info` are exposed out-of-the-box.
-. Restart the application, and navigate to  http://localhost:8080/actuator/wavefront to access the Tanzu Observability by Wavefront dashboard.
 
 == Summary
 
@@ -136,7 +147,5 @@ You just developed a web application that sends metrics to Tanzu Observability b
 The following may also be helpful:
 
 * https://docs.wavefront.com/wavefront_springboot.html[Tanzu Observability by Wavefront for Spring Boot Documentation]
-* https://docs.wavefront.com/wavefront_springboot_tutorial.html[Try this tutorial to send trace data to Tanzu Observability by Wavefront]
-* {spring_boot_docs}/production-ready-features.html#production-ready-metrics-meter[Out-of-the-Box Spring Boot Metrics]
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/main/footer.adoc[]
