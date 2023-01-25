@@ -12,18 +12,21 @@ repositories {
 	mavenCentral()
 }
 
-dependencyManagement {
-	imports {
-		mavenBom "com.wavefront:wavefront-spring-boot-bom:3.0.1"
-	}
+ext {
+	set('wavefrontVersion', "3.0.1")
 }
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'com.wavefront:wavefront-spring-boot-starter'
-	runtimeOnly 'io.micrometer:micrometer-registry-wavefront'
+	runtimeOnly 'com.wavefront:wavefront-spring-boot-starter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "com.wavefront:wavefront-spring-boot-bom:${wavefrontVersion}"
+	}
 }
 
 tasks.named('test') {
