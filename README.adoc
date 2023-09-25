@@ -39,7 +39,7 @@ NOTE: If your IDE has the Spring Initializr integration, you can complete the st
 
 Follow these steps to start the project and to automatically send several auto-configured metrics to Tanzu Observability by Wavefront.
 
-. Include the https://github.com/wavefrontHQ/wavefront-spring-boot[Wavefront for Spring Boot 3] to the Maven dependencies.
+. Add the https://github.com/wavefrontHQ/wavefront-spring-boot[Wavefront for Spring Boot 3 starter] to the Maven dependencies.
 Open the `pom.xml` and add the following to the `<dependencies>` block:
 +
 [indent=0]
