@@ -1,32 +1,25 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.1.0'
-	id 'io.spring.dependency-management' version '1.1.0'
+	id 'org.springframework.boot' version '3.2.0'
+	id 'io.spring.dependency-management' version '1.1.4'
 }
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+
+java {
+	sourceCompatibility = '17'
+}
 
 repositories {
 	mavenCentral()
 }
 
-ext {
-	set('wavefrontVersion', "3.0.1")
-}
-
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	runtimeOnly 'com.wavefront:wavefront-spring-boot-starter'
+	runtimeOnly 'io.micrometer:micrometer-registry-wavefront'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-}
-
-dependencyManagement {
-	imports {
-		mavenBom "com.wavefront:wavefront-spring-boot-bom:${wavefrontVersion}"
-	}
 }
 
 tasks.named('test') {
