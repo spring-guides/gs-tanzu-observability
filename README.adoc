@@ -27,7 +27,7 @@ If you want to initialize the project manually, follow the steps given below:
 
 . Navigate to https://start.spring.io.
 This service pulls in all the dependencies you need for an application and does most of the setup for you.
-. Select your favorite build system and language. This guide assumes you've selected Java.
+. Select your favorite build system and language. This guide assumes you've selected Java and Maven.
 . Click **Add dependencies** and select **Spring Web** and then **Wavefront**.
 . Click **Generate**. You download a ZIP file, which is an archive of a web application that includes Tanzu Observability.
 
@@ -37,6 +37,19 @@ NOTE: If your IDE has the Spring Initializr integration, you can complete the st
 == Out-of-the-Box Observability
 
 Follow these steps to start the project and to automatically send several auto-configured metrics to Tanzu Observability by Wavefront.
+
+. Add the https://github.com/wavefrontHQ/wavefront-spring-boot[Wavefront for Spring Boot 3 starter] to the Maven dependencies.
+Open the `pom.xml` and add the following to the `<dependencies>` block:
++
+[indent=0]
+----
+<dependency>
+  <groupId>com.wavefront</groupId>
+  <artifactId>wavefront-spring-boot-starter</artifactId>
+  <version>3.0.1</version>
+</dependency>
+----
++
 
 . Before you start the service, configure the project so that you can identify the metrics sent by the application and service.
 Open the `application.properties` file and add the following:
