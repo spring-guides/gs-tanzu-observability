@@ -4,14 +4,14 @@
 :source-highlighter: prettify
 :project_id: gs-tanzu-observability
 
-This guide walks you through your first Spring Boot project with Tanzu Observability by Wavefront.
+This guide walks you through your first Spring Boot project with Aria Operations for Applications.
 
 == What You Will Build
 
-You will create a simple web application and configure it to send metrics to a freemium cluster.
+You will create a simple web application and configure it to send metrics to an Operations for Applications account.
 
 
-== What You need
+== What You Need
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/main/prereq_editor_jdk_buildtools.adoc[]
 
@@ -29,14 +29,14 @@ If you want to initialize the project manually, follow the steps given below:
 This service pulls in all the dependencies you need for an application and does most of the setup for you.
 . Select your favorite build system and language. This guide assumes you've selected Java and Maven.
 . Click **Add dependencies** and select **Spring Web** and then **Wavefront**.
-. Click **Generate**. You download a ZIP file, which is an archive of a web application that includes Tanzu Observability.
+. Click **Generate**. You download a ZIP file, which is an archive of a web application that includes Operations for Applications.
 
 NOTE: If your IDE has the Spring Initializr integration, you can complete the steps above from your IDE.
 
 [[initial]]
 == Out-of-the-Box Observability
 
-Follow these steps to start the project and to automatically send several auto-configured metrics to Tanzu Observability by Wavefront.
+Follow these steps to start the project and to automatically send several auto-configured metrics to Operations for Applications.
 
 . Add the https://github.com/wavefrontHQ/wavefront-spring-boot[Wavefront for Spring Boot 3 starter] to the Maven dependencies.
 Open the `pom.xml` and add the following to the `<dependencies>` block:
@@ -60,8 +60,22 @@ Open the `application.properties` file and add the following:
 	management.wavefront.application.service-name=getting-started
 ----
 +
-NOTE: The properties above configure the integration to send metrics to Tanzu Observability by Wavefront using the `demo` application and the `getting-started` service.
+NOTE: The properties above configure the integration to send metrics to Operations for Applications using the `demo` application and the `getting-started` service.
 An application can consist of an arbitrary number of microservices.
++
+
+. To send data to the Operations for Applications account, specify the `uri` and `api-token` properties as follows:
++
+[indent=0]
+----
+    management.wavefront.api-token=$API_Token
+    management.wavefront.uri=$wavefront_instance
+----
++
+[indent=1]
+	* `$API_Token` is a valid https://docs.wavefront.com/users_account_managing.html#generate-an-api-token[API token for your Operations for Applications instance].
+	* `$wavefront_instance` is the name of your Operations for Applications instance, for example, `https://example.wavefront.com`.
+
 
 . Run the application from your IDE by invoking the `main` method of `DemoApplication`.
 You see the following:
@@ -71,31 +85,22 @@ You see the following:
     INFO 58371 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
     INFO 58371 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
     INFO 58371 --- [           main] hello.DemoApplication                    : Started DemoApplication in 1.705 seconds (process running for 2.038)
-
-    A Wavefront account has been provisioned successfully and the API token has been saved to disk.
-
-    To share this account, make sure the following is added to your configuration:
-
-        management.wavefront.api-token=ee1f454b-abcd-efgh-1234-bb449f6a25ed
-        management.wavefront.uri=https://wavefront.surf
-
-    Connect to your Wavefront dashboard using this one-time use link:
-    https://wavefront.surf/us/AtoKen
 ----
 
-**What Happened?**
+**Examine Your Data**
 
-* Without any extra information, an account on a Freemium cluster was automatically provisioned for you.
-* An API token was created for you.
-* To let you access your dashboard on the Freemium cluster, a one-time use link was logged when the application started. The link starts with `https://wavefront.surf`.
-Copy this link into your favorite browser and explore the out-of-the-box Spring Boot dashboard:
+To examine the data:
+
+* Go to your server instance, click Dashboards > All Dashboards and enter Spring Boot Inventory.
+* Select Contains: Spring Boot Inventory, and click the Spring Boot Inventory result in the table.
+You are taken to the Wavefront Spring Boot Inventory dashboard where you can examine the data sent by your application. This dashboard provides real-time visibility into your Spring Boot application landscape. The dashboard has several sections that include the following charts:
 
 image::{images}/dashboard-initial.png[Wavefront Dashboard]
 
 [NOTE]
 ====
 It takes a minute for the data to show up.
-When you can see the data in Tanzu Observability by Wavefront, make sure that the **Application** and **Service** names in the filters match what you configured in the `application.properties` file.
+When you can see the data in Operations for Applications, make sure that the **Application** and **Service** names in the filters match what you configured in the `application.properties` file.
 
 image::{images}/application_service_filters.png[**Application** and **Service** names in the filters match what you configured in the `application.properties` file.]
 ====
@@ -123,7 +128,7 @@ image::{images}/dashboard-http.png[Wavefront HTTP section]
 == Summary
 
 Congratulations!
-You just developed a web application that sends metrics to Tanzu Observability by Wavefront.
+You just developed a web application that sends metrics to Operations for Applications.
 
 
 == See Also
@@ -131,6 +136,6 @@ You just developed a web application that sends metrics to Tanzu Observability b
 The following may also be helpful:
 
 * Wavefront for Spring Boot 3 https://github.com/wavefrontHQ/wavefront-spring-boot/blob/springboot3/README.md[README], which includes instructions for enabling Distributed Tracing
-* https://docs.wavefront.com/wavefront_springboot.html[Tanzu Observability by Wavefront for Spring Boot Documentation]
+* https://docs.wavefront.com/wavefront_springboot3.html[Operations for Applications for Spring Boot Documentation]
 
 include::https://raw.githubusercontent.com/spring-guides/getting-started-macros/main/footer.adoc[]
